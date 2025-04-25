@@ -23,8 +23,20 @@
     </style>
 </head>
 <body>
-<label>
-    <textarea placeholder="Write your post-game notes here..."></textarea>
-</label>
+<label for="note"></label><textarea id="note" placeholder="Write your post-game notes here..."></textarea>
+
+    <script>
+        const textarea = document.getElementById('note');
+
+        // Load saved content on startup
+        window.notesAPI.loadNote().then(saved => {
+            textarea.value = saved;
+        });
+
+        // Save automatically on change
+        textarea.addEventListener('input', () => {
+            window.notesAPI.saveNote(textarea.value);
+        });
+    </script>
 </body>
 </html>
